@@ -1,0 +1,30 @@
+@media (max-width: 800px) {
+  .screen {
+    display: block;
+    width: 400px;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .card-property-title strong {
+    font-size: 1.2em;
+  }
+
+  .card-property-title span {
+    font-size: 0.9em;
+  }
+
+  .header .title {
+    font-size: 1.4em;
+  }
+
+  .input-container {
+    border: 3px solid #eeeeee;
+  }
+
+  .more-details {
+    display: flex;
+  }
+}
