@@ -1,4 +1,8 @@
-export const Sidebar = (): JSX.Element => {
+import {PathInfo} from "../card-container/CardContainer";
+
+// @ts-ignore
+export const Sidebar = ({pathInfo}): JSX.Element => {
+    const pathDetails = pathInfo as PathInfo
     return (
         <div className="sidebar flex-vertical">
             <div className="purchase-section flex-fill flex-vertical">
@@ -50,11 +54,7 @@ export const Sidebar = (): JSX.Element => {
                     </li>
                     <li className="flex-between">
                         <span>Product</span>
-                        <strong>MacBook Air</strong>
-                    </li>
-                    <li className="flex-between">
-                        <span>VAT (20%)</span>
-                        <strong>$100.00</strong>
+                        <strong>{pathDetails.product?.desc}</strong>
                     </li>
                 </ul>
             </div>

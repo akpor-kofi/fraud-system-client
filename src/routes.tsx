@@ -1,22 +1,26 @@
-import {RouteObject} from "react-router-dom";
+import {Params, RouteObject} from "react-router-dom";
 import {Payment} from "./paymentPage/Payment";
 import App from "./App";
 import React, {useState} from "react";
-
-
-class Merchant {}
 
 export const routes: RouteObject[] = [
     {
         element: <Payment />,
         path: "/payment/:merchantId",
-        loader: async ({params}): Promise<Response> => {
-            return fetch(
-                `${import.meta.env.REST_API}/hello`)
+        loader: async ({request, params}) => {
+            const url = new URL(request.url)
+            return {
+                merchantId: params.merchantId,
+                user: {
+                    userId: url.searchParams.get("userId")
+                },
+                product: {
+                    id: url.searchParams.get("productId"),
+                    desc: url.searchParams.get("desc"),
+                    price: url.searchParams.get("price")
+                }
+            }
         },
-        // action: async ({ request }) => {
-        //     return updateFakeTeam(await request.formData());
-        // },
         ErrorBoundary: (): JSX.Element => {
             return (
                 <div>OOPS... Something went wrong</div>

@@ -1,4 +1,13 @@
-export const CreditCardField = (): JSX.Element => {
+import {UseFormRegister} from "react-hook-form";
+import {Card} from "../card-container/CardContainer";
+import {Simulate} from "react-dom/test-utils";
+
+type prop = {
+    register: UseFormRegister<Card>
+}
+
+export const CreditCardField = ({register}: prop): JSX.Element => {
+
     return (
         <div className="flex-between">
             <div className="card-number flex-vertical-center flex-fill">
@@ -12,10 +21,10 @@ export const CreditCardField = (): JSX.Element => {
                     </svg>
 
 
-                    <input className="numbers" type="number" min="1" max="9999" placeholder="0000" />
-                    <input className="numbers" type="number" placeholder="0000" />
-                    <input className="numbers" type="number" placeholder="0000" />
-                    <input className="numbers" type="number" placeholder="0000"
+                    <input className="numbers" type="number" min="1" max="9999" placeholder="0000" {...register("creditCardSlotOne", {required: true})}/>
+                    <input className="numbers" type="number" placeholder="0000" {...register("creditCardSlotTwo", {required: true})}/>
+                    <input className="numbers" type="number" placeholder="0000" {...register("creditCardSlotThree", {required: true})}/>
+                    <input className="numbers" type="number" placeholder="0000" {...register("creditCardSlotFour", {required: true})}
                            data-bound="carddigits_mock" data-def="0000" />
                 </div>
                 <i className="ai-circle-check-fill size-lg f-main-color"></i>

@@ -3,12 +3,33 @@ import reactLogo from './assets/react.svg'
 import './App.css'
 
 function App() :JSX.Element {
-  const [count, setCount] = useState(0)
+  const [name, setName] = useState("")
+
+    function handleNameChange(e: any) {
+      setName(e.target.value)
+    }
+
+    function printName(e: any) {
+      e.preventDefault()
+
+      console.log(name)
+    }
 
   return (
-      <h1 className="text-3xl font-bold underline">
-          Hello world!
-      </h1>
+        <div>
+
+            <h1 className="text-3xl font-bold underline">
+                Hello world!
+            </h1>
+            <form onSubmit={printName}>
+                <input type="text" name="name" onChange={handleNameChange}/>
+                <input type="text" name="email"/>
+                <input type="text" name="password"/>
+                <input type="text" name="confirm-password"/>
+
+                <input type="submit"/>
+            </form>
+        </div>
   )
 }
 
