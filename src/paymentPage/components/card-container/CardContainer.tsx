@@ -6,6 +6,7 @@ import {CreditCardField} from "../credit-card-field/CreditCardField";
 import {Input} from "postcss";
 import {Sidebar} from "../sidebar/Sidebar";
 import {SubmitHandler, useForm} from "react-hook-form";
+import {useMutation} from "@tanstack/react-query";
 
 export type Card = {
   creditCardSlotOne: number,
@@ -37,16 +38,54 @@ export interface PathInfo {
   merchantId: string
 }
 
+type paymentRequestPayload = {
+  amount: number,
+  cardHolder: string,
+  expiryMonth: number,
+  expiryYear: number,
+  cvc: string,
+  creditCard: string,
+  user: string,
+  merchant: string
+}
+
 export const CardContainer = () :JSX.Element => {
   const pathInfo = useLoaderData() as PathInfo
   const { register, handleSubmit, formState: { errors } } = useForm<Card>();
-  const onSubmit: SubmitHandler<Card> = (card: Card) => {
-    console.log(pathInfo.merchantId)
-    console.log(pathInfo.user?.userId)
-    console.log(pathInfo.product?.desc)
-    console.log(pathInfo.product?.price)
-    console.log(card)
 
+  // create mutation and query
+  const mutation = useMutation({
+    mutationFn: (newPayload) => {
+      return fetch(`${import.meta.env.VITE_SERVER_URL}/transactions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newPayload)
+      })
+    }
+  })
+
+  const onSubmit: SubmitHandler<Card> = (card: Card) => {
+
+    const reqBody: paymentRequestPayload = {
+      amount: parseFloat(pathInfo.product?.price! + ""),
+      cardHolder: card.cardHolder,
+      creditCard: "" + card.creditCardSlotOne + card.creditCardSlotTwo + card.creditCardSlotThree + card.creditCardSlotFour,
+      cvc: "" + card.cvcNumber,
+      expiryMonth: card.expiryMonth,
+      expiryYear: card.expiryYear,
+      user: pathInfo.user?.userId!,
+      merchant: pathInfo.merchantId
+    }
+
+    console.log(import.meta.env.VITE_SERVER_URL)
+
+    // TODO
+    // @ts-ignore
+    mutation.mutate(reqBody)
+
+    console.log(reqBody)
   }
 
   return (
