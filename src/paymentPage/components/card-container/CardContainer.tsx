@@ -1,6 +1,6 @@
 import './CardContainer.css'
 import './container-queries.css'
-import {useLoaderData} from "react-router-dom";
+import {BrowserRouter, useLoaderData, useNavigate} from "react-router-dom";
 import {FormInputText} from "../form-input-text/FormInputText";
 import {CreditCardField} from "../credit-card-field/CreditCardField";
 import {Input} from "postcss";
@@ -40,11 +40,11 @@ export interface PathInfo {
 
 type paymentRequestPayload = {
   amount: number,
-  cardHolder: string,
-  expiryMonth: number,
-  expiryYear: number,
+  card_holder: string,
+  expiry_month: number,
+  expiry_year: number,
   cvc: string,
-  creditCard: string,
+  credit_card: string,
   user: string,
   merchant: string
 }
@@ -52,6 +52,8 @@ type paymentRequestPayload = {
 export const CardContainer = () :JSX.Element => {
   const pathInfo = useLoaderData() as PathInfo
   const { register, handleSubmit, formState: { errors } } = useForm<Card>();
+
+  console.log(pathInfo)
 
   // create mutation and query
   const mutation = useMutation({
@@ -70,11 +72,11 @@ export const CardContainer = () :JSX.Element => {
 
     const reqBody: paymentRequestPayload = {
       amount: parseFloat(pathInfo.product?.price! + ""),
-      cardHolder: card.cardHolder,
-      creditCard: "" + card.creditCardSlotOne + card.creditCardSlotTwo + card.creditCardSlotThree + card.creditCardSlotFour,
+      card_holder: card.cardHolder,
+      credit_card: "" + card.creditCardSlotOne + card.creditCardSlotTwo + card.creditCardSlotThree + card.creditCardSlotFour,
       cvc: "" + card.cvcNumber,
-      expiryMonth: card.expiryMonth,
-      expiryYear: card.expiryYear,
+      expiry_month: parseInt(card.expiryMonth+""),
+      expiry_year: parseInt(card.expiryYear+""),
       user: pathInfo.user?.userId!,
       merchant: pathInfo.merchantId
     }
@@ -90,6 +92,27 @@ export const CardContainer = () :JSX.Element => {
 
   return (
       <div className="screen flex-center">
+        {/* RESPONSIVE CARD DETAILS CONTAINER  */}
+        <div className="more-details p-lg">
+          <div className="details-flex">
+            <span className="details">Company</span>
+            <span className="details-abt">Apple</span>
+          </div>
+          <div className="details-flex">
+            <span className="details">Order number</span>
+            <span className="details-abt">429252965</span>
+          </div>
+          <div className="details-flex">
+            <span className="details">Product</span>
+            <span className="details-abt">MacBook Air</span>
+          </div>
+          <div className="details-flex">
+            <span className="details">To Pay</span>
+            <span className="details-abt">
+            549.99 <span className="currency">usd</span>
+          </span>
+          </div>
+        </div>
         <form className="popup flex p-lg" onSubmit={handleSubmit(onSubmit)}>
           <div className="close-btn pointer flex-center p-sm">
             <i className="ai-cross"></i>
@@ -163,6 +186,7 @@ export const CardContainer = () :JSX.Element => {
           </div>
 
           {/*SIDEBAR*/}
+
           <Sidebar pathInfo={pathInfo}/>
         </form>
       </div>

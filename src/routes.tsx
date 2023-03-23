@@ -18,7 +18,7 @@ export const routes: RouteObject[] = [
                     id: url.searchParams.get("productId"),
                     desc: url.searchParams.get("desc"),
                     price: url.searchParams.get("price")
-                }
+                },
             }
         },
         ErrorBoundary: (): JSX.Element => {
