@@ -1,12 +1,11 @@
-import './CardContainer.css'
+import './card-container.css'
 import './container-queries.css'
 import {BrowserRouter, useLoaderData, useNavigate} from "react-router-dom";
-import {FormInputText} from "../form-input-text/FormInputText";
-import {CreditCardField} from "../credit-card-field/CreditCardField";
-import {Input} from "postcss";
-import {Sidebar} from "../sidebar/Sidebar";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useMutation} from "@tanstack/react-query";
+import {FormInputText} from "../form-input-text/form-input-text";
+import {CreditCardField} from "../credit-card-field/credit-card-field";
+import {Sidebar} from "../sidebar/sidebar";
 
 export type Card = {
   creditCardSlotOne: number,

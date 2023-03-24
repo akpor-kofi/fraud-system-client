@@ -1,4 +1,7 @@
-import {PathInfo} from "../card-container/CardContainer";
+
+
+// @ts-ignore
+import {PathInfo} from "../card-container/card-container";
 
 // @ts-ignore
 export const Sidebar = ({pathInfo}): JSX.Element => {

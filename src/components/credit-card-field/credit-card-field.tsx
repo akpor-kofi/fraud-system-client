@@ -1,6 +1,6 @@
 import {UseFormRegister} from "react-hook-form";
-import {Card} from "../card-container/CardContainer";
 import {Simulate} from "react-dom/test-utils";
+import {Card} from "../card-container/card-container";
 
 type prop = {
     register: UseFormRegister<Card>

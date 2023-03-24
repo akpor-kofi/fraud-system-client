@@ -4,6 +4,10 @@
     width: 400px;
   }
 
+  .popup {
+    flex-direction: column;
+  }
+
   .sidebar {
     display: none;
   }

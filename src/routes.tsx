@@ -1,9 +1,19 @@
 import {Params, RouteObject} from "react-router-dom";
-import {Payment} from "./paymentPage/Payment";
 import App from "./App";
 import React, {useState} from "react";
+import {Merchant} from "./pages/merchant";
+import {Payment} from "./pages/payment";
 
 export const routes: RouteObject[] = [
+    {
+        element: <Merchant />,
+        path: "/merchant",
+        ErrorBoundary: (): JSX.Element => {
+            return (
+                <div>OOPS... Something went wrong</div>
+            )
+        },
+    },
     {
         element: <Payment />,
         path: "/payment/:merchantId",
